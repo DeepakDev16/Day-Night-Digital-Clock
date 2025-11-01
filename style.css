@@ -1,0 +1,192 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: background 1.5s ease;
+  position: relative;
+  color: #fff;
+}
+
+/* 🌈 Rotating Circular Gradient */
+.circular-bg {
+  position: absolute;
+  width: 250%;
+  height: 250%;
+  top: -75%;
+  left: -75%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 180deg,
+    #ffe57f,
+    #ffb84d,
+    #ff6f61,
+    #f8b500,
+    #ffe57f
+  );
+  filter: blur(140px);
+  animation: rotate 18s linear infinite;
+  z-index: -2;
+  opacity: 0.8;
+}
+
+body.night-mode .circular-bg {
+  background: conic-gradient(
+    from 90deg,
+    #0f2027,
+    #203a43,
+    #2c5364,
+    #1e3c72,
+    #141e30
+  );
+  animation-duration: 30s;
+  opacity: 0.9;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ☀️ Sun & 🌙 Moon */
+.sky {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.sun, .moon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  transition: all 1.2s ease;
+  width: 130px;
+  height: 130px;
+}
+
+.sun {
+  top: 25%;
+  background: radial-gradient(circle at 30% 30%, #fff5b7, #f8b500);
+  box-shadow: 0 0 80px 30px #ffd56b;
+  opacity: 1;
+}
+
+.moon {
+  top: 75%;
+  background: radial-gradient(circle at 40% 40%, #fff, #aab6f3);
+  box-shadow: 0 0 50px 20px #b6c9f0;
+  opacity: 0;
+}
+
+body.night-mode .sun {
+  top: 110%;
+  opacity: 0;
+}
+body.night-mode .moon {
+  top: 20%;
+  opacity: 1;
+}
+
+/* 🌗 Toggle Button */
+.toggle-container {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 10;
+}
+
+#mode-toggle {
+  background: rgba(255, 255, 255, 0.25);
+  border: 2px solid white;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: 0.3s;
+}
+body.day-mode #mode-toggle {
+  color: #222;
+  border-color: #333;
+  background: rgba(255, 255, 255, 0.7);
+}
+#mode-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* 💎 Clock Container (Glassmorphism) */
+.clock-container {
+  text-align: center;
+  padding: 50px 70px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 🕒 Clock Text */
+#clock {
+  font-size: 72px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-shadow: 0 0 25px #ffd36e;
+  animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(255,255,255,0.6); }
+  to { text-shadow: 0 0 40px rgba(255,255,255,1); }
+}
+
+body.night-mode #clock {
+  color: #00eaff;
+  text-shadow: 0 0 25px #00c8ff, 0 0 60px #00b3ff;
+}
+
+/* Greeting */
+#greeting {
+  font-size: 26px;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeText 2s ease forwards;
+}
+@keyframes fadeText {
+  to { opacity: 1; }
+}
+
+/* ✨ Floating Particles Canvas */
+#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #clock { font-size: 52px; }
+  #greeting { font-size: 20px; }
+  .clock-container { padding: 30px; }
+}
